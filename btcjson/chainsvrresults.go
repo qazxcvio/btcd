@@ -641,8 +641,11 @@ func (v *Vin) MarshalJSON() ([]byte, error) {
 
 // PrevOut represents previous output for an input Vin.
 type PrevOut struct {
-	Addresses []string `json:"addresses,omitempty"`
-	Value     float64  `json:"value"`
+	Addresses    []string           `json:"addresses,omitempty"`
+	Value        float64            `json:"value"`
+	Height       float64            `json:"height"`
+	Generated    bool               `json:"generated"`
+	ScriptPubKey ScriptPubKeyResult `json:"scriptPubKey"`
 }
 
 // VinPrevOut is like Vin except it includes PrevOut.  It is used by searchrawtransaction
@@ -763,20 +766,21 @@ type InfoChainResult struct {
 
 // TxRawResult models the data from the getrawtransaction command.
 type TxRawResult struct {
-	Hex           string `json:"hex"`
-	Txid          string `json:"txid"`
-	Hash          string `json:"hash,omitempty"`
-	Size          int32  `json:"size,omitempty"`
-	Vsize         int32  `json:"vsize,omitempty"`
-	Weight        int32  `json:"weight,omitempty"`
-	Version       uint32 `json:"version"`
-	LockTime      uint32 `json:"locktime"`
-	Vin           []Vin  `json:"vin"`
-	Vout          []Vout `json:"vout"`
-	BlockHash     string `json:"blockhash,omitempty"`
-	Confirmations uint64 `json:"confirmations,omitempty"`
-	Time          int64  `json:"time,omitempty"`
-	Blocktime     int64  `json:"blocktime,omitempty"`
+	Hex           string       `json:"hex"`
+	Txid          string       `json:"txid"`
+	Hash          string       `json:"hash,omitempty"`
+	Size          int32        `json:"size,omitempty"`
+	Vsize         int32        `json:"vsize,omitempty"`
+	Weight        int32        `json:"weight,omitempty"`
+	Version       uint32       `json:"version"`
+	LockTime      uint32       `json:"locktime"`
+	Vin           []VinPrevOut `json:"vin"`
+	Vout          []Vout       `json:"vout"`
+	BlockHash     string       `json:"blockhash,omitempty"`
+	Confirmations uint64       `json:"confirmations,omitempty"`
+	Time          int64        `json:"time,omitempty"`
+	Blocktime     int64        `json:"blocktime,omitempty"`
+	Fee           float64      `json:"fee,omitempty"`
 }
 
 // SearchRawTransactionsResult models the data from the searchrawtransaction
@@ -792,6 +796,7 @@ type SearchRawTransactionsResult struct {
 	LockTime      uint32       `json:"locktime"`
 	Vin           []VinPrevOut `json:"vin"`
 	Vout          []Vout       `json:"vout"`
+	Fee           float64      `json:"fee"`
 	BlockHash     string       `json:"blockhash,omitempty"`
 	Confirmations uint64       `json:"confirmations,omitempty"`
 	Time          int64        `json:"time,omitempty"`
