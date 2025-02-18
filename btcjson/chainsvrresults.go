@@ -484,7 +484,7 @@ type ScriptPubKeyResult struct {
 	Hex       string   `json:"hex,omitempty"`
 	ReqSigs   int32    `json:"reqSigs,omitempty"` // Deprecated: removed in Bitcoin Core
 	Type      string   `json:"type"`
-	Address   string   `json:"address,omitempty"`
+	Address   *string  `json:"address,omitempty"`
 	Addresses []string `json:"addresses,omitempty"` // Deprecated: removed in Bitcoin Core
 }
 
@@ -651,8 +651,8 @@ type PrevOut struct {
 // VinPrevOut is like Vin except it includes PrevOut.  It is used by searchrawtransaction
 type VinPrevOut struct {
 	Coinbase  string     `json:"coinbase"`
-	Txid      string     `json:"txid"`
-	Vout      uint32     `json:"vout"`
+	Txid      *string    `json:"txid"`
+	Vout      *uint32    `json:"vout"`
 	ScriptSig *ScriptSig `json:"scriptSig"`
 	Witness   []string   `json:"txinwitness"`
 	PrevOut   *PrevOut   `json:"prevOut"`
@@ -692,8 +692,8 @@ func (v *VinPrevOut) MarshalJSON() ([]byte, error) {
 			PrevOut   *PrevOut   `json:"prevOut,omitempty"`
 			Sequence  uint32     `json:"sequence"`
 		}{
-			Txid:      v.Txid,
-			Vout:      v.Vout,
+			Txid:      *v.Txid,
+			Vout:      *v.Vout,
 			ScriptSig: v.ScriptSig,
 			Witness:   v.Witness,
 			PrevOut:   v.PrevOut,
@@ -709,8 +709,8 @@ func (v *VinPrevOut) MarshalJSON() ([]byte, error) {
 		PrevOut   *PrevOut   `json:"prevOut,omitempty"`
 		Sequence  uint32     `json:"sequence"`
 	}{
-		Txid:      v.Txid,
-		Vout:      v.Vout,
+		Txid:      *v.Txid,
+		Vout:      *v.Vout,
 		ScriptSig: v.ScriptSig,
 		PrevOut:   v.PrevOut,
 		Sequence:  v.Sequence,
@@ -780,7 +780,7 @@ type TxRawResult struct {
 	Confirmations uint64       `json:"confirmations,omitempty"`
 	Time          int64        `json:"time,omitempty"`
 	Blocktime     int64        `json:"blocktime,omitempty"`
-	Fee           float64      `json:"fee,omitempty"`
+	Fee           *float64     `json:"fee,omitempty"`
 }
 
 // SearchRawTransactionsResult models the data from the searchrawtransaction
