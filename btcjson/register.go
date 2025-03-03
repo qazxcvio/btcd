@@ -107,21 +107,11 @@ func baseKindString(rt reflect.Type) string {
 // are not supported.
 func isAcceptableKind(kind reflect.Kind) bool {
 	switch kind {
-	case reflect.Chan:
-		fallthrough
-	case reflect.Complex64:
-		fallthrough
-	case reflect.Complex128:
-		fallthrough
-	case reflect.Func:
-		fallthrough
-	case reflect.Ptr:
-		fallthrough
-	case reflect.Interface:
-		return false
+	case reflect.Chan, reflect.Complex64, reflect.Complex128, reflect.Func, reflect.Ptr:
+		return false // 拒绝的列表（移除了 Interface）
+	default:
+		return true // 其他类型（包括 Interface）均视为合法
 	}
-
-	return true
 }
 
 // RegisterCmd registers a new command that will automatically marshal to and
@@ -211,7 +201,7 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 			fallthrough
 		default:
 			if !isAcceptableKind(kind) {
-				str := fmt.Sprintf("unsupported field type "+
+				str := fmt.Sprintf("11unsupported field type "+
 					"'%s (%s)' (field name %q)", rtf.Type,
 					baseKindString(rtf.Type), rtf.Name)
 				return makeError(ErrUnsupportedFieldType, str)

@@ -190,14 +190,19 @@ func (r FutureGetBlockVerboseResult) Receive() (*btcjson.GetBlockVerboseResult, 
 // the returned instance.
 //
 // See GetBlockVerbose for the blocking version and more details.
-func (c *Client) GetBlockVerboseAsync(blockHash *chainhash.Hash) FutureGetBlockVerboseResult {
+func (c *Client) GetBlockVerboseAsync(blockHash *chainhash.Hash, ver interface{}) FutureGetBlockVerboseResult {
 	hash := ""
 	if blockHash != nil {
 		hash = blockHash.String()
 	}
 	// From the bitcoin-cli getblock documentation:
 	// "If verbosity is 1, returns an Object with information about block ."
-	cmd := btcjson.NewGetBlockCmd(hash, btcjson.Int(1))
+
+	cmd := &btcjson.GetBlockCmd{
+		Hash:      hash,
+		Verbosity: ver,
+	}
+
 	return FutureGetBlockVerboseResult{
 		client:   c,
 		hash:     hash,
@@ -210,8 +215,8 @@ func (c *Client) GetBlockVerboseAsync(blockHash *chainhash.Hash) FutureGetBlockV
 //
 // See GetBlockVerboseTx to retrieve transaction data structures as well.
 // See GetBlock to retrieve a raw block instead.
-func (c *Client) GetBlockVerbose(blockHash *chainhash.Hash) (*btcjson.GetBlockVerboseResult, error) {
-	return c.GetBlockVerboseAsync(blockHash).Receive()
+func (c *Client) GetBlockVerbose(blockHash *chainhash.Hash, ver interface{}) (*btcjson.GetBlockVerboseResult, error) {
+	return c.GetBlockVerboseAsync(blockHash, ver).Receive()
 }
 
 // FutureGetBlockVerboseTxResult is a future promise to deliver the result of a
