@@ -486,7 +486,7 @@ func NewListReceivedByAddressCmd(minConf *int, includeEmpty, includeWatchOnly *b
 type ListSinceBlockCmd struct {
 	BlockHash           *string
 	TargetConfirmations *int  `jsonrpcdefault:"1"`
-	IncludeWatchOnly    *bool `jsonrpcdefault:"false"`
+	IncludeWatchOnly    *bool `jsonrpcdefault:"true"`
 }
 
 // NewListSinceBlockCmd returns a new instance which can be used to issue a
