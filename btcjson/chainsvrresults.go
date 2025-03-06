@@ -85,11 +85,11 @@ type GetBlockVerboseResult struct {
 	Tx            []string      `json:"tx,omitempty"`
 	RawTx         []TxRawResult `json:"rawtx,omitempty"` // Note: this field is always empty when verbose != 2.
 	Time          int64         `json:"time"`
-	Nonce         uint32        `json:"nonce"`
-	Bits          string        `json:"bits"`
-	Difficulty    float64       `json:"difficulty"`
-	PreviousHash  string        `json:"previousblockhash"`
-	NextHash      string        `json:"nextblockhash,omitempty"`
+	//Nonce         uint32        `json:"nonce"`
+	Bits         string  `json:"bits"`
+	Difficulty   float64 `json:"difficulty"`
+	PreviousHash string  `json:"previousblockhash"`
+	NextHash     string  `json:"nextblockhash,omitempty"`
 }
 
 // GetBlockVerboseTxResult models the data from the getblock command when the
@@ -111,11 +111,11 @@ type GetBlockVerboseTxResult struct {
 	Tx            []TxRawResult `json:"tx,omitempty"`
 	RawTx         []TxRawResult `json:"rawtx,omitempty"` // Deprecated: removed in Bitcoin Core
 	Time          int64         `json:"time"`
-	Nonce         uint32        `json:"nonce"`
-	Bits          string        `json:"bits"`
-	Difficulty    float64       `json:"difficulty"`
-	PreviousHash  string        `json:"previousblockhash"`
-	NextHash      string        `json:"nextblockhash,omitempty"`
+	//Nonce         uint32        `json:"nonce"`
+	Bits         string  `json:"bits"`
+	Difficulty   float64 `json:"difficulty"`
+	PreviousHash string  `json:"previousblockhash"`
+	NextHash     string  `json:"nextblockhash,omitempty"`
 }
 
 // GetChainTipsResult models the data from the getchaintips command.

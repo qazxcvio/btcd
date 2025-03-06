@@ -1020,6 +1020,7 @@ func (c *Client) SendCmd(cmd interface{}) chan *Response {
 	}
 	// Get the method associated with the command.
 	method, err := btcjson.CmdMethod(cmd)
+
 	if err != nil {
 		return newFutureError(err)
 	}

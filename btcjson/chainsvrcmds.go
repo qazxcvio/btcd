@@ -212,7 +212,7 @@ type GetBlockCmd struct {
 func NewGetBlockCmd(hash string, verbosity *int) *GetBlockCmd {
 	return &GetBlockCmd{
 		Hash:      hash,
-		Verbosity: true,
+		Verbosity: 2,
 	}
 }
 

@@ -9,7 +9,6 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-
 	"github.com/btcsuite/btcd/btcjson"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
@@ -55,14 +54,14 @@ func (c *Client) GetBestBlockHash() (*chainhash.Hash, error) {
 // legacyGetBlockRequest constructs and sends a legacy getblock request which
 // contains two separate bools to denote verbosity, in contract to a single int
 // parameter.
-func (c *Client) legacyGetBlockRequest(hash string, verbose,
+func (c *Client) legacyGetBlockRequest(hash string, verbose int,
 	verboseTx bool) ([]byte, error) {
 
 	hashJSON, err := json.Marshal(hash)
 	if err != nil {
 		return nil, err
 	}
-	verboseJSON, err := json.Marshal(btcjson.Bool(verbose))
+	verboseJSON, err := json.Marshal(btcjson.Int(verbose))
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +78,7 @@ func (c *Client) legacyGetBlockRequest(hash string, verbose,
 // Response indicates an invalid parameter was provided, a legacy style of the
 // request is resent and its Response is returned instead.
 func (c *Client) waitForGetBlockRes(respChan chan *Response, hash string,
-	verbose, verboseTx bool) ([]byte, error) {
+	verbose int, verboseTx bool) ([]byte, error) {
 
 	res, err := ReceiveFuture(respChan)
 
@@ -106,7 +105,7 @@ type FutureGetBlockResult struct {
 // Receive waits for the Response promised by the future and returns the raw
 // block requested from the server given its hash.
 func (r FutureGetBlockResult) Receive() (*wire.MsgBlock, error) {
-	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, false, false)
+	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, 2, false)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +170,7 @@ type FutureGetBlockVerboseResult struct {
 // Receive waits for the Response promised by the future and returns the data
 // structure from the server with information about the requested block.
 func (r FutureGetBlockVerboseResult) Receive() (*btcjson.GetBlockVerboseResult, error) {
-	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, true, false)
+	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, 2, false)
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +229,7 @@ type FutureGetBlockVerboseTxResult struct {
 // Receive waits for the Response promised by the future and returns a verbose
 // version of the block including detailed information about its transactions.
 func (r FutureGetBlockVerboseTxResult) Receive() (*btcjson.GetBlockVerboseTxResult, error) {
-	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, true, true)
+	res, err := r.client.waitForGetBlockRes(r.Response, r.hash, 2, true)
 	if err != nil {
 		return nil, err
 	}
