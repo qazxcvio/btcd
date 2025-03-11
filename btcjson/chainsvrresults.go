@@ -721,9 +721,13 @@ func (v *VinPrevOut) MarshalJSON() ([]byte, error) {
 // Vout models parts of the tx data.  It is defined separately since both
 // getrawtransaction and decoderawtransaction use the same structure.
 type Vout struct {
-	Value        float64            `json:"value"`
-	N            uint32             `json:"n"`
-	ScriptPubKey ScriptPubKeyResult `json:"scriptPubKey"`
+	Value           float64            `json:"value"`
+	N               uint32             `json:"n"`
+	ScriptPubKey    ScriptPubKeyResult `json:"scriptPubKey"`
+	StandardKeyHash struct {
+		Hex     string `json:"hex"`
+		Address string `json:"address"`
+	} `json:"standard-key-hash,omitempty"`
 }
 
 // GetMiningInfoResult models the data from the getmininginfo command.

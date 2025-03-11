@@ -317,7 +317,11 @@ func (c *Client) ListSinceBlockAsync(blockHash *chainhash.Hash) FutureListSinceB
 		hash = btcjson.String(blockHash.String())
 	}
 
-	cmd := btcjson.NewListSinceBlockCmd(hash, nil, nil)
+	// bch
+	target := 1
+	includeWatchOnly := true
+
+	cmd := btcjson.NewListSinceBlockCmd(hash, &target, &includeWatchOnly)
 	return c.SendCmd(cmd)
 }
 
