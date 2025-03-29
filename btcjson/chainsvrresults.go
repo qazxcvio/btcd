@@ -99,23 +99,23 @@ type GetBlockVerboseResult struct {
 // getblock returns an object whose tx field is an array of raw transactions.
 // Use GetBlockVerboseResult to unmarshal data received from passing verbose=1 to getblock.
 type GetBlockVerboseTxResult struct {
-	Hash          string        `json:"hash"`
-	Confirmations int64         `json:"confirmations"`
-	StrippedSize  int32         `json:"strippedsize"`
-	Size          int32         `json:"size"`
-	Weight        int32         `json:"weight"`
-	Height        int64         `json:"height"`
-	Version       int32         `json:"version"`
-	VersionHex    string        `json:"versionHex"`
-	MerkleRoot    string        `json:"merkleroot"`
-	Tx            []TxRawResult `json:"tx,omitempty"`
-	RawTx         []TxRawResult `json:"rawtx,omitempty"` // Deprecated: removed in Bitcoin Core
-	Time          int64         `json:"time"`
+	Hash string `json:"hash"`
+	//Confirmations int64         `json:"confirmations"`
+	//StrippedSize  int32         `json:"strippedsize"`
+	//Size          int32         `json:"size"`
+	Weight int32 `json:"weight"`
+	Height int64 `json:"height"`
+	//Version       int32         `json:"version"`
+	//VersionHex    string        `json:"versionHex"`
+	//MerkleRoot    string        `json:"merkleroot"`
+	Tx    []TxRawResult `json:"tx,omitempty"`
+	RawTx []TxRawResult `json:"rawtx,omitempty"` // Deprecated: removed in Bitcoin Core
+	Time  int64         `json:"time"`
 	//Nonce         uint32        `json:"nonce"`
-	Bits         string  `json:"bits"`
-	Difficulty   float64 `json:"difficulty"`
-	PreviousHash string  `json:"previousblockhash"`
-	NextHash     string  `json:"nextblockhash,omitempty"`
+	//Bits         string  `json:"bits"`
+	//Difficulty   float64 `json:"difficulty"`
+	PreviousHash string `json:"previousblockhash"`
+	//NextHash     string  `json:"nextblockhash,omitempty"`
 }
 
 // GetChainTipsResult models the data from the getchaintips command.
@@ -770,21 +770,21 @@ type InfoChainResult struct {
 
 // TxRawResult models the data from the getrawtransaction command.
 type TxRawResult struct {
-	Hex    string `json:"hex"`
-	Txid   string `json:"txid"`
-	Hash   string `json:"hash,omitempty"`
-	Size   int32  `json:"size,omitempty"`
-	Vsize  int32  `json:"vsize,omitempty"`
-	Weight int32  `json:"weight,omitempty"`
+	Hex  string `json:"hex"`
+	Txid string `json:"txid"`
+	Hash string `json:"hash,omitempty"`
+	Size int32  `json:"size,omitempty"`
+	//Vsize  int32  `json:"vsize,omitempty"`
+	//Weight int32  `json:"weight,omitempty"`
 	//Version       uint32       `json:"version"`
-	LockTime      uint32       `json:"locktime"`
-	Vin           []VinPrevOut `json:"vin"`
-	Vout          []Vout       `json:"vout"`
-	BlockHash     string       `json:"blockhash,omitempty"`
-	Confirmations uint64       `json:"confirmations,omitempty"`
-	Time          int64        `json:"time,omitempty"`
-	Blocktime     int64        `json:"blocktime,omitempty"`
-	Fee           *float64     `json:"fee,omitempty"`
+	LockTime  uint32       `json:"locktime"`
+	Vin       []VinPrevOut `json:"vin"`
+	Vout      []Vout       `json:"vout"`
+	BlockHash string       `json:"blockhash,omitempty"`
+	//Confirmations uint64       `json:"confirmations,omitempty"`
+	Time      int64    `json:"time,omitempty"`
+	Blocktime int64    `json:"blocktime,omitempty"`
+	Fee       *float64 `json:"fee,omitempty"`
 }
 
 // SearchRawTransactionsResult models the data from the searchrawtransaction
