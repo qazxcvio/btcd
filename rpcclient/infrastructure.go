@@ -98,7 +98,7 @@ const (
 
 	// defaultHTTPTimeout is the default timeout for an http request, so the
 	// request does not block indefinitely.
-	defaultHTTPTimeout = time.Minute * 10
+	defaultHTTPTimeout = time.Minute * 2
 )
 
 // jsonRequest holds information about a json request that is used to properly
@@ -1358,6 +1358,8 @@ func newHTTPClient(config *ConnConfig) (*http.Client, error) {
 		Transport: &http.Transport{
 			Proxy:           proxyFunc,
 			TLSClientConfig: tlsConfig,
+			MaxIdleConns:    100,
+			IdleConnTimeout: 30 * time.Second,
 			DialContext: func(_ context.Context, _,
 				_ string) (net.Conn, error) {
 
