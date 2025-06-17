@@ -98,7 +98,7 @@ const (
 
 	// defaultHTTPTimeout is the default timeout for an http request, so the
 	// request does not block indefinitely.
-	defaultHTTPTimeout = time.Minute * 2
+	defaultHTTPTimeout = time.Minute * 10
 )
 
 // jsonRequest holds information about a json request that is used to properly
