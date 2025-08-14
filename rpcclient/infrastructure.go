@@ -799,15 +799,17 @@ func (c *Client) handleSendPostMessage(jReq *jsonRequest) {
 		}
 
 		// Configure basic access authorization.
-		user, pass, err := c.config.getAuth()
-		if err != nil {
-			jReq.responseChan <- &Response{result: nil, err: err}
-			return
-		}
-		// Only set basic auth if username and password are not empty
-		fmt.Println("user1111", user)
-		if user != "" && pass != "" {
-			httpReq.SetBasicAuth(user, pass)
+		// Check if username and password are provided directly
+		if c.config.User != "" && c.config.Pass != "" {
+			user, pass, err := c.config.getAuth()
+			if err != nil {
+				jReq.responseChan <- &Response{result: nil, err: err}
+				return
+			}
+			// Only set basic auth if username and password are not empty
+			if user != "" && pass != "" {
+				httpReq.SetBasicAuth(user, pass)
+			}
 		}
 
 		httpResponse, err = c.httpClient.Do(httpReq)
